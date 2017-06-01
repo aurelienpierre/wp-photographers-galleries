@@ -1,0 +1,200 @@
+/* Galleries layout */
+
+.gallery {
+        width: 100%;
+        display: table;
+        max-width: 100%;
+}
+
+.gallery .gallery-item {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 2px;
+        display: inline-block;
+        text-align: center;
+        margin:0;
+}
+
+.gallery-columns-2 .gallery-item {
+        width: 50%;
+        max-width: 50%;
+}
+.gallery-columns-3 .gallery-item {
+        width: 33.33%;
+        max-width: 33.33%;
+}
+.gallery-columns-4 .gallery-item {
+        width: 25%;
+        max-width: 25%;
+}
+.gallery-columns-5 .gallery-item {
+        width: 20%;
+        max-width: 20%;
+}
+.gallery-columns-6 .gallery-item {
+        width: 16.67%;
+        max-width: 16.67%;
+}
+.gallery-columns-7 .gallery-item {
+        width: 14.28%;
+        max-width: 14.28%;
+}
+.gallery-columns-8 .gallery-item {
+        width: 12.5%;
+        max-width: 12.5%;
+}
+.gallery-columns-9 .gallery-item {
+        width: 11.11%;
+        max-width: 11.11%;
+}
+
+.gallery img {
+        max-width: none;
+        width: 100%;
+        height: auto;
+}
+
+.wp-caption-text {
+        padding: 1ex;
+        font-size: 0.9em;
+        color: #666;
+        text-align: center;
+}
+
+/* CAPTION ALIGNED */
+
+.pg-align_caption .gallery {
+        display: grid;
+}
+
+.pg-align_caption .gallery .gallery-item {
+        display: inline-block;
+}
+
+/* NO CAPTION */
+
+.pg-no_caption .wp-caption-text {
+        display: none;
+        padding: 0;
+}
+
+.pg-carousel-wrapper .pg-no_caption img { 
+        height: calc(100vh - 50px);
+}
+
+/* HOVER CAPTION */
+
+@media screen and (min-width: 799px) {
+
+        .pg-hover_caption .wp-caption-text {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: none;
+                background: rgba(255, 255, 255, 0.75);
+                z-index:9999;
+                color: black;
+        }
+
+        .pg-hover_caption .gallery-item:hover .wp-caption-text, 
+        .pg-hover_caption .gallery-item:focus .wp-caption-text,
+        .pg-hover_caption .gallery-item:active .wp-caption-text {
+                display: block;
+        }
+
+        .pg-hover_caption .gallery img {
+                height: calc(100vh - 50px);
+        }
+
+}
+
+/* CAROUSEL */
+
+.pg-carousel-wrapper {
+        position: relative;
+}
+
+.pg-carousel {
+        width: 100%;
+        height: auto;
+        overflow-x: scroll;
+	overflow-y: hidden;
+}
+
+.pg-carousel header {
+        position: absolute;
+        font-size: 1.1em;
+        display: block;
+        z-index:9999;
+        font-variant: small-caps;
+        -moz-font-feature-settings: 'smcp' on;
+        -webkit-font-feature-settings: 'smcp' on;
+        -ms-font-feature-settings: 'smcp' on;
+        font-feature-settings: 'smcp' on;
+}
+
+@media screen and (min-width: 800px) {
+
+        .pg-carousel header {
+                top: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0)75%);
+                padding: 0.5ex 1ex 1ex 1ex;
+                color: #f2f2f2;
+        }
+
+        .pg-carousel:hover header, 
+        .pg-carousel:focus header,
+        .pg-carousel:active header {
+                display: none;
+        }
+}
+
+@media (max-width: 799px) {
+
+        .pg-carousel header {
+                top: -2em;
+                left: 0;
+                right: 0;
+                padding: 0.5ex 0;
+                color: #333;
+        }
+        .pg-carousel-wrapper {
+                margin-top: 4em;
+        }
+}
+
+.pg-carousel .gallery { 
+        display: inline;
+        height: 100%!important;
+        width: auto;
+        max-width: none;
+        max-height: 100vh;
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        margin: -2px -2px 0 -2px;
+        padding-right: -10px;
+}
+
+.pg-carousel .gallery-item { 
+        display: inline-table!important;
+        float: none;
+        white-space: nowrap;
+        width: auto!important;
+        height: 100%!important;
+        margin: 0;
+        padding: 0 4px 0 0;
+        position: relative;
+}
+
+.pg-carousel .gallery img { 
+        max-height: 100%;
+        width: auto!important;
+        height: 91%;
+        height: 91vh; /* for older browsers compatibility */
+        height: calc(100vh - 0.9em - 2ex - 50px); 
+        max-width: none;
+}
