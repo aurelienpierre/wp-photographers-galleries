@@ -26,11 +26,11 @@ function pg_add_gallery_taxonomy() {
 	$args = array(
 			'labels' => $labels,
 			'hierarchical' => true,
-			'query_var' => true,
-			'rewrite' => true,
-			'show_ui' => true,
-			'public' => true,
-			'show_admin_column' => true,
+			'query_var' => 'true',
+			'rewrite' => 'true',
+			'show_ui' => 'true',
+			'public' => 'true',
+			'show_admin_column' => 'true',
 	);
 
 	register_taxonomy( 'gallery', 'attachment', $args );
@@ -60,11 +60,11 @@ function pg_add_location_taxonomy() {
 	$args = array(
 			'labels' => $labels,
 			'hierarchical' => true,
-			'query_var' => true,
-			'rewrite' => true,
-			'show_ui' => true,
-			'public' => true,
-			'show_admin_column' => true,
+			'query_var' => 'true',
+			'rewrite' => 'true',
+			'show_ui' => 'true',
+			'public' => 'true',
+			'show_admin_column' => 'true',
 	);
 
 	register_taxonomy( 'location', 'attachment', $args );
@@ -94,11 +94,11 @@ function pg_add_model_taxonomy() {
 	$args = array(
 			'labels' => $labels,
 			'hierarchical' => true,
-			'query_var' => true,
-			'rewrite' => true,
-			'show_ui' => true,
-			'public' => true,
-			'show_admin_column' => true,
+			'query_var' => 'true',
+			'rewrite' => 'true',
+			'show_ui' => 'true',
+			'public' => 'true',
+			'show_admin_column' => 'true',
 	);
 
 	register_taxonomy( 'model', 'attachment', $args );
