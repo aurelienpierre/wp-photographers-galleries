@@ -41,8 +41,8 @@ $VERSION = '0.5.2';
 
 add_action('wp_enqueue_scripts', 'register_pg_styles', 20 );
 function register_pg_styles() {
-  wp_register_style('pg-css', plugins_url('photographers-galleries/css/pg-style.min.css'), array(), '0.5.15');
-  wp_register_script('pg-js', plugins_url('photographers-galleries/js/pg-script.min.js'), array(), '0.5.14', false);
+  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '0.5.15');
+  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '0.5.14', false);
 }
 
 add_filter('the_content', 'enqueue_photographers_galleries', 100);
