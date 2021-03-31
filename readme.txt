@@ -231,6 +231,10 @@ All the same as carousels, plus a `look` argument to choose the styling :
 
 == Changelog ==
 
+= 1.0.1 =
+
+Fix a potential issue in PHP scripts including
+
 = 1.0 =
 
 * Fix Safari issues with picture height in carousels

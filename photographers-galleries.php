@@ -14,7 +14,7 @@
  * Plugin Name: Photographers galleries
  * Plugin URI:  https://wordpress.org/plugins/photographers-galleries/
  * Description: Enhance your galleries with HTML5, metadata, dynamic galleries and add a lightweight carousel to display a sequence of pictures without distractions.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Aurélien PIERRE
  * Author URI:  https://photo.aurelienpierre.com
  * Text Domain: photographers-galleries
