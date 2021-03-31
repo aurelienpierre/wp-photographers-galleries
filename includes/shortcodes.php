@@ -150,11 +150,8 @@ function pg_exhibition( $atts, $content ){
     $nav = "<a class='gallery-prev' onclick='ScrollInc(-1,\"$id\")'><span>&#10094;</span></a>";
     $nav .= "<a class='gallery-next' onclick='ScrollInc(+1,\"$id\")'><span>&#10095;</span></a>";
 
-    // Overlay
-    $over = "<div style='z-index: 10; position: absolute; top: 0; left: 0; width: 100%; height: 100%'></div>";
-
     // Closing markup
-    $after = $over.$nav."</section></div>";
+    $after = $nav."</section></div>";
 
     // Script
     $script = "

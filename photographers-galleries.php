@@ -39,8 +39,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 add_action('wp_enqueue_scripts', 'register_pg_styles', 20 );
 function register_pg_styles() {
-  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.0.1');
-  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0.1', true);
+  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.0');
+  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0', true);
 }
 
 add_filter('the_content', 'enqueue_photographers_galleries', 100);
