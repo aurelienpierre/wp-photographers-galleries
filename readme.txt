@@ -8,30 +8,31 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Enhance your galleries with HTML5 and add a lightweight CSS3 carousel to display a sequence of pictures without distractions.
+Enhance your galleries with HTML5 and add a lightweight CSS3 carousel to display a sequence of pictures without distraction.
 
 == Description ==
 
-**Photographers** usualy need to show their pictures without adding distracting effects such as transitions, frames, shadows, autoplay etc. They are cool though, but visitors may want to look at the pics, not at the fanciness of the latest top-notch trendy slider plugin which might, by the way, slow down their mobile device.
+Most fancy gallery plugins will add their gallery manager on top of WordPress, which already has one… Then, they will crop images to fit within their fancy layout.
+Unfortunately, if you are an artist, the way you composed and framed your picture is no accident and should be honored by whatever display system you use.
+After all that, they will add an awful bloat of jQuery madness that will put a hole in your [Page Speed](https://developers.google.com/speed/pagespeed/insights/) score
+and kill your [loading time](https://tools.pingdom.com/). Finally, they will distract visitors from your content with all their fancy effects that make your CPU overheat for nothing.
 
-Native WordPress galleries are a bit too basic to achieve this but galleries plugins are often heavy, over-engineered and destroy your Page Speed performance, which now weighs in your SERP ranking.
-Photo websites are heavy enough because of the pictures, it's a good idea to keep them as light as possible.
+We need better.
 
-**Photographers galleries** helps photographers to organize their media library and to display dynamic galleries.
+Photographers galleries extends native WordPress galleries with EXIF support and taxonomies, and uses native browser technologies (CSS and HTML), with only a bit of native Javascript to extend them (no additional lib, no jQuery dependency).
+This ensures fast loading, fast execution, and will take advantage of hardware-accelerated animations, which happen to be more energy-efficient.
+It also loads minified CSS and Javascript, only on the pages that actually make use of galleries. It's fast, minimalist, simple, robust, and good for your SEO (which is now a factor in [Google Page Rank](https://tools.pingdom.com/)).
 
-It shows nothing but the pictures, with a clean minimalist and responsive design that will fit flawless in most themes,
-trying to reproduce the user experience you could get at a museum exhibition or in a fashion magazine.
-To stay lightweight and compatible with every modern browser (mobile and desktop), it only takes advantage of native
-Wordpress 3.6+, HTML5, CSS3 and native Javascript capabilities. No additional javascript is required. The styling is consistent with Jetpack galleries.
+The look is inspired by art books and museums exhibitions, meant to allow a flawless and non-intrusive full-screen experience, so you can design your website as a webapp.
 
 [Demo](https://photo.aurelienpierre.com/photographers-galleries-demo/)
 
 = Quick features overview =
 
-* Lightweight and robust : it uses browsers, CSS3, HTML5 and WordPress native features, enhanced with lightweight javascript,
 * Ready to use with caching, minification and lazy loading plugins : WP Super Cache, W3 Total Cache, WP Rocket, etc.,
 * Compatible with Jetpack tiled galleries and every lightbox plugin, consistent with Jetpack tiled galleries styling,
 * Fully responsive (width and height),
+* The JS weighs only 4.7 kB, and the CSS 7 kB. JS is loaded in page footer and supports deferring.
 * Theme-agnostic design, classy minimalist look.
 
 = Attachements improvements =
@@ -63,10 +64,11 @@ It will help you to bulk edit your media library too. See [Other notes](https://
 = Galleries improvements =
 
 **Photographers galleries** enable the WordPress built-in HTML5 support for pictures and galleries to produce `<figure>` and `<figcaption>` tags to increase
-the SEO and get rid of WordPress default gallery layout (which width is set by the global variable `$content_width`) and adds a fully responsive
+the SEO and get rid of WordPress default gallery layout (which width is set by the global variable `$content_width`). They add a fully responsive
 stylesheet to fit the galleries along the borders of the container.
 
 It also adds more thumbnails sizes for the responsive `srcset` HTML attribute of images, allowing browsers to load exactly the right image size for the current viewport size.
+These sizes go all the way from 240×360px to 4096×2160px, so don't be afraid to upload high-resolution images, your visitors will only see the image size relevant for their screen size and pixel density.
 
 No particular operation is required, just use your regular WordPress gallery builder inside the post editor.
 
@@ -75,6 +77,8 @@ No particular operation is required, just use your regular WordPress gallery bui
 **Photographers galleries** uses only regular WordPress galleries, called by the `[gallery]` shortcode, and does not rewrite them.
 This is intended to ensure maximum compatibility with other plugins (lightboxes, etc.) as well at with future WordPress versions. The extra gallery layouts are
 provided by extra shortcodes to wrap around the WordPress galleries.
+
+**Note : this makes use of the classic editor gallery, not the Gutenberg block. For what Photographers galleries does, the Gutenberg gallery block adds no benefit over the classic gallery.**
 
 Extra gallery layouts :
 
@@ -86,7 +90,8 @@ See [Installation](https://wordpress.org/plugins/photographers-galleries/install
 = Carousel =
 
 **Photographers galleries** has a fixed-height carousel which takes by default 100 % of the container width and 92 % of the viewport height
-(99 % if captions are not displayed). It uses the native scollbars of the browser to ensure compatibility with every device, mobile or desktop.
+(99 % if captions are not displayed). It uses the native browser scrolling, supporting horizontal scrolling (touchpad and mouse wheel),
+swiping gestures (touch screens), click/tap on the next/previous buttons, as well as keyboard arrow keys (left and right).
 
 The pictures are fitted to the same height so the layout is flawless and continuous, perfect to display a serie
 or a portfolio. Every carousel instance on a same page can have its own style. This carousel was inspired by [Format](https://format.com/themes#horizon).
@@ -96,6 +101,8 @@ See [Installation](https://wordpress.org/plugins/photographers-galleries/install
 = Exhibitions =
 
 Exhibitions are a new mode of the 1.0 that enables a full-width and full-height experience with a framing look reproducing museum framings.
+They come in-place of usual lightboxes and gives your pictures maximal impact with minimal clutter, assuming you will use them in a full-width theme template.
+They support keyboard arrow keys interactions, as well as horizontal scrolling and click/tap on the buttons.
 
 = Media library improvements =
 
@@ -110,39 +117,15 @@ Exhibitions are a new mode of the 1.0 that enables a full-width and full-height 
 * copyright terms,
 * author credit.
 
-= Upcoming features =
+== Caveats ==
 
-We are in dev phase so kep in touch. If you are a dev, you are welcome to contribute !
-
-1. A theme template part for attachments taxonomies archives,
-1. A bulk edit option to add multiple images in batch to attachments taxonomies (thus galleries),
-1. A hook to add taxonomies directly in the post editor (while uploading them) without Media Library Assistant (overkill) plugin,
-1. Workarounds with Exifography plugin to build dynamic galleries based on Exif metadata (shot date, ISO, aperture, camera, GPS, etc.).
-
-= Coding philosophy =
-
-**1. Never overwrite WordPress core functions** : that's nasty and garanteed to break other plugins now or in the future.
-Moreover, as soon as these WP functions will be rewritten, our code would be obsolete. You would be suprised to know how many
-plugins overwrite the native `[gallery]` shortcode, for example. That's bad.
-All we do is building around WP core with wrappers, passing to them the right inputs and getting the right outputs.
-
-**2. Separating the form and the content** : that means that you will always be able to use your own style over PG's one while
-using it without nasty tricks (usefull for theme developpers). We will use filters as much as possible so themes developpers
-could modify them on the fly.
-
-**3. Never have a settings page*** : we will always add options on standard WP admin pages so you should never have to mess up
-with complex settings. The paradigm choosen is very similar to the 500 px or Flickr one, keeping in mind the professional photographer needs.
-So let's stuck to something you already know : WP default interface.
-
-**4. Build on top of WordPress** : my secret wish is to get this functions natively into WordPress core so we will keep it
-modular.
-
-**5. Every part of the code is commented with docstrings** : because I code for others.
+Using native WordPress galleries, Photographers Galleries need to overwrite theme styling, which might still compete with it.
+Some CSS tuning might be necessary
 
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/plugin-name` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
+1. Activate the plugin through the 'Plugins' screen in WordPress.
 
 The plugin has no configuration page.
 
@@ -162,7 +145,7 @@ WordPress shortcode, we just give it the pictures to show (meaning that your def
 
 **Arguments** :
 
-* DISPLAY ARGUMENTS *optionnal*
+* DISPLAY ARGUMENTS *optional*
 	* Standard WordPress gallery arguments (See [the WP Codex](http://codex.wordpress.org/Gallery_Shortcode)):
 		* `columns`
 		* `size`
@@ -199,7 +182,7 @@ Put your gallery shortcode in a `[nocaption]` shortcode like this : `[nocaption]
 
 = Carousel =
 
-Just put your regular gallery shortcode in `[carousel]` shortcode like this : `[carousel][gallery ids=""][/carousel]`
+Just put your regular gallery shortcode in `[carousel]` shortcode like this : `[carousel][gallery ids="" size="full"][/carousel]`
 
 Ensure your picture resolution is high enough to fit modern screens without stretching (2048 px on the large side is recommended).
 
@@ -239,6 +222,20 @@ Please notice that the height argument sets the actual image height, not the who
 
 Each carousel on the page gets its own ID and settings, meaning that you can use several carousels on the same page with various settings.
 
+= Exhibitions =
+
+They work very similarly to carousels : `[exhibition][gallery ids="" size="full"][/exhibition]`.
+
+**Arguments** :
+
+All the same as carousels, plus a `look` argument to choose the styling :
+
+* `modern` : similar to an alu-dibond mounting,
+* `classic` : similar to a classical framing with a passe-partout,
+* `box`, `box-dark`, `box-bright` : similar to a shadow box (called American box in Europe), in 3 shades,
+* `plain` : no styling at all,
+* `custom`, etc : you can create your own CSS looks by setting `look="your-name"` in the shortcode, and style the CSS selector `.pg-exhibition-wrapper .look-your-name`.
+
 == Other notes ==
 
 = Configuring Media Library Assistant for PG =
@@ -254,6 +251,13 @@ Each carousel on the page gets its own ID and settings, meaning that you can use
 
 
 == Changelog ==
+
+= 1.0 =
+
+* Fix Safari issues with picture height in carousels
+* Add keyboard, touch swipe and horizontal scroll support in carousels
+* Add exhibition mode
+* Add thumbnail sizes for common screen resolutions, to fit in `scrset` of responsive images
 
 = 0.4 =
 
