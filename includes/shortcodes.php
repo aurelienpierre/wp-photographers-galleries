@@ -75,8 +75,10 @@ function pg_carousel( $atts, $content ){
     // Script
     $script = "
     <script>
-    /* Transform Y scroll to X scroll on the carousel */
     var matte = document.getElementById('$id');
+    var arrow_left = matte.getElementsByClassName('gallery-prev')[0];
+    arrow_left.style.display = 'none';
+    matte.addEventListener('scroll', function(event) { updateArrows(event, '$id'); }, {passive: true});
     matte.addEventListener('keydown', function(event) {
       if(event.key == 'ArrowLeft') Scroll(-1, '$id');
       if(event.key == 'ArrowRight') Scroll(+1, '$id');
@@ -152,7 +154,7 @@ function pg_exhibition( $atts, $content ){
     $over = "<div style='z-index: 10; position: absolute; top: 0; left: 0; width: 100%; height: 100%'></div>";
 
     // Closing markup
-    $after = $nav."</section></div>";
+    $after = $over.$nav."</section></div>";
 
     // Script
     $script = "

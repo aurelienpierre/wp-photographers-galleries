@@ -46,6 +46,24 @@ function Scroll(n, id) {
   });
 }
 
+var timer;
+
+function updateArrows(event, id) {
+  // hide navigation arrows if container is scrolled to max/min
+
+  clearTimeout(timer);
+  timer = setTimeout(function () {
+    var matte = document.getElementById(id);
+    var arrow_left = matte.getElementsByClassName('gallery-prev')[0];
+    var arrow_right = matte.getElementsByClassName('gallery-next')[0];
+    if (matte.scrollLeft == 0) arrow_left.style.display = 'none';
+    else arrow_left.style.display = 'block';
+
+    if (matte.scrollLeft == matte.scrollLeftMax) arrow_right.style.display = 'none';
+    else arrow_right.style.display = 'block';
+  }, 300);
+}
+
 /* Incremental scrolling for exhibitions */
 
 function preload(matte, next_image) {
@@ -176,7 +194,7 @@ window.addEventListener('resize', function () {
       }
     }
   }, 500);
-});
+}, {passive: true});
 
 
 /* Horizontal Scrolling and swiping handling */
@@ -204,40 +222,35 @@ function jumpScroll(event, id) {
 
 
 /* Give keyboard focus on exhibitions and carousels */
-/*
-var carousels = document.getElementsByClassName('pg-carousel');
-var exhibitions = document.getElementsByClassName('pg-exhibition');
-var sections = document.querySelectorAll('.pg-exhibition,.pg-carousel');
 
-console.log(sections);
-*/
-
-
-document.addEventListener("keydown", function (event) {
-  if (event.code == 'KeyT') {
-    stopPrntScr();
-    console.log('copy is disabled');
-  }
-});
-
-
-function stopPrntScr() {
-  var inpFld = document.createElement("input");
-  inpFld.setAttribute("value", ".");
-  inpFld.setAttribute("width", "0");
-  inpFld.style.height = "0px";
-  inpFld.style.width = "0px";
-  inpFld.style.border = "0px";
-  document.body.appendChild(inpFld);
-  inpFld.select();
-  document.execCommand("copy");
-  inpFld.remove(inpFld);
-
-  function AccessClipboardData() {
-    try {
-      window.clipboardData.setData('text', "Access   Restricted");
-    } catch (err) {
-    }
-  }
-  setInterval("AccessClipboardData()", 300);
+var isInViewport = function(elem) {
+  // check if current object is in viewport
+  // from https://gomakethings.com/how-to-test-if-an-element-is-in-the-viewport-with-vanilla-javascript/
+  var bounding = elem.getBoundingClientRect();
+  var result = (
+    bounding.top >= -40 &&
+    bounding.left >= -40 &&
+    bounding.bottom <= window.innerHeight + 40 &&
+    bounding.right <= window.innerWidth + 40
+  );
+  return result;
 }
+
+window.addEventListener('scroll', function (event) {
+  clearTimeout(isScrolling);
+  isScrolling = setTimeout(function () {
+    var carousels = document.getElementsByClassName('pg-carousel');
+    var exhibitions = document.getElementsByClassName('pg-exhibition');
+
+    for (i = 0; i < carousels.length; i++) {
+      var elem = carousels[i];
+      if (isInViewport(elem)) elem.focus({ preventScroll: false });
+      else elem.blur();
+    }
+    for (i = 0; i < exhibitions.length; i++) {
+      var elem = exhibitions[i];
+      if (isInViewport(elem)) elem.focus({ preventScroll: false });
+      else elem.blur();
+    }
+  }, 100);
+}, { passive: true });

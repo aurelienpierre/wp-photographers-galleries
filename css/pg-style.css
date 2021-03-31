@@ -83,10 +83,30 @@
 
 /* CAROUSEL AND EXHIBITION BASICS */
 
+html {
+  scroll-snap-type: block proximity;
+  scroll-behavior: smooth;
+}
+
+.pg-exhibition-wrapper {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.pg-carousel-wrapper {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
 .pg-carousel .gallery figure.gallery-item,
 .pg-exhibition .gallery figure.gallery-item,
+.pg-carousel .gallery figure.gallery-item .gallery-icon,
+.pg-exhibition .gallery figure.gallery-item .gallery-icon,
+.pg-carousel .gallery figure.gallery-item .gallery-icon img,
+.pg-exhibition .gallery figure.gallery-item .gallery-icon img,
 .pg-carousel .gallery figure.gallery-item figcaption.wp-caption-text,
 .pg-exhibition .gallery figure.gallery-item figcaption.wp-caption-text {
+  /* nuke theme borders */
   border: none;
 }
 
@@ -297,7 +317,7 @@
   0 0.25em 0.5em rgba(0, 0, 0, 0.25);
 }
 
-.pg-exhibition-wrapper .look-classic .gallery .gallery-icon {
+.pg-exhibition-wrapper .look-classic .gallery figure.gallery-item .gallery-icon {
   padding: 1em;
   background-color: #ededeb;
   border: 0.25em solid #333;
@@ -332,17 +352,17 @@
   box-shadow: 0 0.25em 1em rgba(0, 0, 0, 0.75);
 }
 
-.pg-exhibition-wrapper .look-box .gallery .gallery-icon {
+.pg-exhibition-wrapper .look-box .gallery figure.gallery-item .gallery-icon {
   background-color: #777;
   border: 0.25em solid #666;
 }
 
-.pg-exhibition-wrapper .look-box-dark .gallery .gallery-icon {
+.pg-exhibition-wrapper .look-box-dark .gallery figure.gallery-item .gallery-icon {
   background-color: #555;
   border: 0.25em solid #444;
 }
 
-.pg-exhibition-wrapper .look-box-bright .gallery .gallery-icon {
+.pg-exhibition-wrapper .look-box-bright .gallery figure.gallery-item .gallery-icon {
   background-color: #999;
   border: 0.25em solid #888;
 }

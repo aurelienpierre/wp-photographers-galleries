@@ -14,7 +14,7 @@
  * Plugin Name: Photographers galleries
  * Plugin URI:  https://wordpress.org/plugins/photographers-galleries/
  * Description: Enhance your galleries with HTML5, metadata, dynamic galleries and add a lightweight carousel to display a sequence of pictures without distractions.
- * Version:     0.5.15
+ * Version:     1.0.0
  * Author:      Aurélien PIERRE
  * Author URI:  https://photo.aurelienpierre.com
  * Text Domain: photographers-galleries
@@ -26,8 +26,6 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
-$VERSION = '0.5.2';
 
 /**
  * Register CSS
@@ -41,8 +39,8 @@ $VERSION = '0.5.2';
 
 add_action('wp_enqueue_scripts', 'register_pg_styles', 20 );
 function register_pg_styles() {
-  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '0.5.15');
-  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '0.5.14', false);
+  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.0.0');
+  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0.0', false);
 }
 
 add_filter('the_content', 'enqueue_photographers_galleries', 100);
@@ -149,3 +147,59 @@ function add_image_attachment_fields_to_save($post, $attachment) {
     return $post;
 }
 add_filter('attachment_fields_to_save', 'add_image_attachment_fields_to_save', null , 2);
+
+add_action( 'after_setup_theme', 'pg_custom_add_image_sizes' );
+function pg_custom_add_image_sizes() {
+
+  /*
+  https://www.w3counter.com/globalstats.php
+  repartition :
+  1 	1366x768 	10.09%
+  2 	640x360 	9.43%
+  3 	1920x1080 	7.32%
+  4 	667x375 	5.06%
+  5 	896x414 	4.44%
+  6 	1024x768 	4.00%
+  7 	812x375 	3.54%
+  8 	780x360 	3.26%
+  9 	760x360 	2.93%
+  10 	1440x900 	2.90%
+  */
+
+  add_image_size( 'portrait-7680', '7680', '0', false ); // 8K
+  add_image_size( 'portrait-4096', '4096', '0', false ); // 4K cinema
+  add_image_size( 'portrait-3840', '3840', '0', false ); // 4K
+  add_image_size( 'portrait-2560', '2560', '0', false ); // QHD / WQHD
+  add_image_size( 'portrait-2048', '2048', '0', false ); // 2K
+  add_image_size( 'portrait-1920', '1920', '0', false ); // Full HD
+  add_image_size( 'portrait-1680', '1680', '0', false ); // Desktop WSXGA+
+  add_image_size( 'portrait-1440', '1440', '0', false ); // Desktop WXGA+
+  add_image_size( 'portrait-1366', '1366', '0', false ); // HD-ish
+  add_image_size( 'portrait-1280', '1280', '0', false ); // WXGA - HD
+  add_image_size( 'portrait-1080', '1080', '0', false ); // Full HD height
+  add_image_size( 'portrait-960', '960', '0', false );   // DVGA - iPhone 4
+  add_image_size( 'portrait-800', '800', '0', false );   // WXGA - HD height
+  add_image_size( 'portrait-640', '640', '0', false );   // VGA - Standard definition
+  add_image_size( 'portrait-480', '480', '0', false );   // HVGA - Palm, iPhone 1
+  add_image_size( 'portrait-360', '360', '0', false );   // Old stuff
+  add_image_size( 'portrait-240', '240', '0', false );   // Very old stuff
+
+  // panoramic images
+  add_image_size( 'landscape-7680', '0', '7680', false ); // 8K
+  add_image_size( 'landscape-4096', '0', '4096', false ); // 4K cinema
+  add_image_size( 'landscape-3840', '0', '3840', false ); // 4K
+  add_image_size( 'landscape-2560', '0', '2560', false ); // QHD / WQHD
+  add_image_size( 'landscape-2048', '0', '2048', false ); // 2K
+  add_image_size( 'landscape-1920', '0', '1920', false ); // Full HD
+  add_image_size( 'landscape-1680', '0', '1680', false ); // Desktop WSXGA+
+  add_image_size( 'landscape-1440', '0', '1440', false ); // Desktop WXGA+
+  add_image_size( 'landscape-1366', '0', '1366', false ); // HD-ish
+  add_image_size( 'landscape-1280', '0', '1280', false ); // WXGA - HD
+  add_image_size( 'landscape-1080', '0', '1080', false ); // Full HD height
+  add_image_size( 'landscape-960', '0', '960', false );   // DVGA - iPhone 4
+  add_image_size( 'landscape-800', '0', '800', false );   // WXGA - HD height
+  add_image_size( 'landscape-640', '0', '640', false );   // VGA - Standard definition
+  add_image_size( 'landscape-480', '0', '480', false );   // HVGA - Palm, iPhone 1
+  add_image_size( 'landscape-360', '0', '360', false );   // Old stuff
+  add_image_size( 'landscape-240', '0', '240', false );   // Very old stuff
+}
