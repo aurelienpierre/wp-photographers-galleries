@@ -80,12 +80,12 @@ class pg_Carousels {
 /*
  * Register shortcodes
 */
-include_once(plugin_dir_url( __FILE__ ).'includes/shortcodes.php');
+include_once('includes/shortcodes.php');
 
 /*
  * Register taxonomies
  */
-include_once(plugin_dir_url( __FILE__ ).'includes/taxonomies.php');
+include_once('includes/taxonomies.php');
 
 
 /*
@@ -101,7 +101,7 @@ add_action( 'init', 'pg_add_attachment_support' );
 /*
  * Improve media library admin page
  */
-include_once(plugin_dir_url( __FILE__ ).'admin/media-admin.php');
+include_once('admin/media-admin.php');
 
 
 function remove_post_custom_fields() {
