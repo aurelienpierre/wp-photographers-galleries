@@ -148,6 +148,10 @@ html {
   transition: transform .5s ease-out;
 }
 
+.pg-carousel::-webkit-scrollbar, .pg-exhibition::-webkit-scrollbar {
+  display: none; /* Chrome and Opera */
+}
+
 .pg-exhibition {
   padding: 4em;
 }
