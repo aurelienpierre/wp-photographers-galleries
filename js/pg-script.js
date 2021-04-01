@@ -64,6 +64,15 @@ function updateArrows(event, id) {
   }, 300);
 }
 
+function removeArrows(matte) {
+  // remove navigation arrows if exhibition has only 1 image
+  var arrow_left = matte.getElementsByClassName('gallery-prev')[0];
+  var arrow_right = matte.getElementsByClassName('gallery-next')[0];
+  arrow_left.style.display = 'none';
+  arrow_right.style.display = 'none';
+}
+
+
 /* Incremental scrolling for exhibitions */
 
 function preload(matte, next_image) {
@@ -158,7 +167,9 @@ function ScrollInc(n, id) {
 
   // Preload the next image in the current direction
   if (n != 0) {
+    // n = 0 is a special case triggered only at init
     preload(matte, figures[salvageIndex(new_index + n)]);
+    if (nb_figures == 1) { removeArrows(matte); }
   }
   else {
     preload(matte, figures[salvageIndex(-1)]);
