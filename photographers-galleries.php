@@ -14,7 +14,7 @@
  * Plugin Name: Photographers galleries
  * Plugin URI:  https://wordpress.org/plugins/photographers-galleries/
  * Description: Enhance your galleries with HTML5, metadata, dynamic galleries and add a lightweight carousel to display a sequence of pictures without distractions.
- * Version:     1.0.1
+ * Version:     1.0.2
  * Author:      Aurélien PIERRE
  * Author URI:  https://photo.aurelienpierre.com
  * Text Domain: photographers-galleries
@@ -39,8 +39,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 add_action('wp_enqueue_scripts', 'register_pg_styles', 20 );
 function register_pg_styles() {
-  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.0.1');
-  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0.1', true);
+  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.0.2');
+  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0.2', true);
 }
 
 add_filter('the_content', 'enqueue_photographers_galleries', 100);
@@ -50,6 +50,9 @@ function enqueue_photographers_galleries( $content )
   if(preg_match('/<(div|section).*class=([\'\"]).*gallery.*\1.*>/s', $content))
   {
     wp_enqueue_style('pg-css');
+  }
+  if(preg_match('/<(div|section).*class=([\'\"]).*pg-.*\1.*>/s', $content))
+  {
     wp_enqueue_script('pg-js');
   }
   return $content;

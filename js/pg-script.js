@@ -255,12 +255,12 @@ window.addEventListener('scroll', function (event) {
 
     for (i = 0; i < carousels.length; i++) {
       var elem = carousels[i];
-      if (isInViewport(elem)) elem.focus({ preventScroll: false });
+      if (isInViewport(elem)) elem.focus({ preventScroll: true });
       else elem.blur();
     }
     for (i = 0; i < exhibitions.length; i++) {
       var elem = exhibitions[i];
-      if (isInViewport(elem)) elem.focus({ preventScroll: false });
+      if (isInViewport(elem)) elem.focus({ preventScroll: true });
       else elem.blur();
     }
   }, 100);

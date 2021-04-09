@@ -231,6 +231,10 @@ All the same as carousels, plus a `look` argument to choose the styling :
 
 == Changelog ==
 
+= 1.0.2 =
+
+Fix minor CSS issues, improve carousel arrows legibility and make them smaller.
+
 = 1.0.1 =
 
 Fix a potential issue in PHP scripts including
