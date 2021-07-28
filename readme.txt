@@ -231,6 +231,10 @@ All the same as carousels, plus a `look` argument to choose the styling :
 
 == Changelog ==
 
+= 1.0.3 =
+
+Remove legacy code to display custom media taxinomies on media pages. This feature is now in WordPress core.
+
 = 1.0.2 =
 
 Fix minor CSS issues, improve carousel arrows legibility and make them smaller.

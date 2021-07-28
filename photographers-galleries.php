@@ -14,7 +14,7 @@
  * Plugin Name: Photographers galleries
  * Plugin URI:  https://wordpress.org/plugins/photographers-galleries/
  * Description: Enhance your galleries with HTML5, metadata, dynamic galleries and add a lightweight carousel to display a sequence of pictures without distractions.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      Aurélien PIERRE
  * Author URI:  https://photo.aurelienpierre.com
  * Text Domain: photographers-galleries
@@ -106,51 +106,9 @@ add_action( 'init', 'pg_add_attachment_support' );
  */
 include_once('admin/media-admin.php');
 
-
-function remove_post_custom_fields() {
-	remove_meta_box( 'attachment-compat' , 'attachment' , 'normal' );
-}
-add_action( 'admin_menu' , 'remove_post_custom_fields' );
-
-function add_media_categories($fields, $post) {
-    $categories = get_categories(array('taxonomy' => 'model', 'hide_empty' => 0));
-    $post_categories = wp_get_object_terms($post->ID, 'model', array('fields' => 'ids'));
-    $all_cats .= '<ul id="media-categories-list" style="width:500px;">';
-    foreach ($categories as $category) {
-        if (in_array($category->term_id, $post_categories)) {
-            $checked = ' checked="checked"';
-        } else {
-            $checked = '';
-        }
-        $option = '<li style="width:240px;float:left;"><input type="checkbox" value="'.$category->category_nicename.'" id="'.$post->ID.'-'.$category->category_nicename.'" name="'.$post->ID.'-'.$category->category_nicename.'"'.$checked.'> ';
-        $option .= '<label for="'.$post->ID.'-'.$category->category_nicename.'">'.$category->cat_name.'</label>';
-        $option .= '</li>';
-        $all_cats .= $option;
-    }
-    $all_cats .= '</ul>';
-
-    $categories = array('all_categories' => array (
-            'label' => __('Models'),
-            'input' => 'html',
-            'html' => $all_cats
-    ));
-    return array_merge($fields, $categories);
-}
-add_filter('attachment_fields_to_edit', 'add_media_categories', null, 2);
-
-function add_image_attachment_fields_to_save($post, $attachment) {
-    $categories = get_categories(array('taxonomy' => 'model', 'hide_empty' => 0));
-    $terms = array();
-    foreach($categories as $category) {
-        if (isset($_POST[$post['ID'].'-'.$category->category_nicename])) {
-            $terms[] = $_POST[$post['ID'].'-'.$category->category_nicename];
-        }
-    }
-    wp_set_object_terms( $post['ID'], $terms, 'model' );
-    return $post;
-}
-add_filter('attachment_fields_to_save', 'add_image_attachment_fields_to_save', null , 2);
-
+/*
+ * Add custom sizes for responsive images
+ */
 add_action( 'after_setup_theme', 'pg_custom_add_image_sizes' );
 function pg_custom_add_image_sizes() {
 
