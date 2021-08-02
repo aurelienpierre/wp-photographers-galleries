@@ -10,28 +10,48 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Enhance your galleries with HTML5 responsive `figure` and present them with a  lightweight CSS3 carousel or exhibition mode that fills the gap between a digital presentation and a real-life exhibition.
 
-[Demo](https://photo.aurelienpierre.com/photographers-galleries-demo/)
 
 == Description ==
+
+= What ? =
+
+This is a lightweight plugin to display dynamic or static galleries on posts and pages with minimal overhead and using only native WordPress media.
+
+Main features:
+
+1. enable responsive images sizes (visitors get served the closest image size to their actual display resolution),
+2. enable custom taxinomies, tags, comments, author, comments for media attachments,
+3. make images queryable by tags, comments, taxinomies, etc. to display dynamic galleries from a shortcode,
+4. provide shortcode wrappers for default WordPress galleries to enable advanced layouts (carousel, exhibition, no caption, etc.),
+5. style default column galleries in a masonry way,
+6. add EXIF metadata in media admin view,
+7. fully responsive (height and width),
+8. **provide elegant, minimalist looks that put emphasis on image content first and never crop images to fit in an arbitrary layout.**
+
+The look is inspired by art books and museums exhibitions, meant to allow a flawless and non-intrusive full-screen experience, so you can design your website as a webapp.
+
+
+= Why ? =
 
 Most fancy gallery plugins will add their gallery manager on top of WordPress, which already has one… Then, they will crop images to fit within their fancy layout. Unfortunately, if you are an artist, the way you composed and framed your picture is no accident and should be honored by whatever display system you use. After all that, they will add an awful bloat of jQuery madness that will put a hole in your [Page Speed](https://developers.google.com/speed/pagespeed/insights/) score and kill your [loading time](https://tools.pingdom.com/). Finally, they will distract visitors from your content with all their fancy effects that make your CPU overheat for nothing. Picture-based websites were already heavy, these will make sure to give them the final blow...
 
 We need better.
 
-Photographers galleries extends native WordPress galleries with EXIF support and taxonomies, and make them query-able to display truly dynamic galleries. It uses 90% of built-in browser technologies (pure CSS and HTML), with only a bit of native Javascript to extend them (no jQuery or additional lib dependency). This ensures fast loading, fast execution, and will take advantage of hardware-accelerated animations. Overall, you get carousels and exhibitions with a small performance footprint, which is more energy-efficient but also snappier nd better looking than full-on Javascript animations.
 
-For performance, it loads minified CSS and Javascript, only on the pages that actually make use of galleries (auto-detected). It's fast, minimalist, simple, robust, and good for your SEO (which is now a factor in [Google Page Rank](https://tools.pingdom.com/)).
+= How ? =
 
-The look is inspired by art books and museums exhibitions, meant to allow a flawless and non-intrusive full-screen experience, so you can design your website as a webapp.
+* Use only built-in browser technologies (CSS, HTML, and native Javascript) to extend browser native features.
+* Don't use jQuery or additional bloatware lib that slows down page loading, creates compatibility nightmares and may not be hardware-accelerated.
+* Load minified JS and CSS, on-demand (only on pages that use them), in footer and with defer support.
+* Compatible with caching, minification, CDN and lazy loading (tested with WP Rocket).
+* Compatible with lightboxes plugins.
+* Only extends core WordPress features, for better security and maintainability.
+
+The JS weighs only 5.2 kB, and the CSS 7.2 kB.
 
 
-= Quick features overview =
+== Features ==
 
-* Ready to use with caching, minification and lazy loading plugins : WP Super Cache, W3 Total Cache, WP Rocket, etc.,
-* Compatible with Jetpack tiled galleries and every lightbox plugin, consistent with Jetpack tiled galleries styling,
-* Fully responsive (width and height),
-* The JS weighs only 4.7 kB, and the CSS 7 kB. JS is loaded in page footer and supports deferring.
-* Theme-agnostic design, classy minimalist look.
 
 = Attachements improvements =
 
@@ -104,9 +124,6 @@ Exhibitions preload the next and previous images in row while looking at the cur
 * copyright terms,
 * author credit.
 
-== Caveats ==
-
-Using native WordPress galleries, Photographers Galleries need to overwrite theme styling, which might still compete with it. Some CSS tuning might be necessary to fix corner-cases.
 
 == Installation ==
 
@@ -215,7 +232,9 @@ All the same as carousels, plus a `look` argument to choose the styling :
 * `plain` : no styling at all,
 * `custom`, etc : you can create your own CSS looks by setting `look="your-name"` in the shortcode, and style the CSS selector `.pg-exhibition-wrapper .look-your-name`.
 
-== Other notes ==
+
+== Technical details ==
+
 
 = Configuring Media Library Assistant for PG =
 
@@ -223,6 +242,12 @@ All the same as carousels, plus a `look` argument to choose the styling :
 1. Go to the "Taxonomy Support" option
 1. For "Galleries", "Locations", "Models", check all the checkboxes of the line
 1. Strings are ready to translate
+
+
+= Caveats =
+
+Using native WordPress galleries, Photographers Galleries need to overwrite theme styling, which might still compete with it. Some CSS tuning might be necessary to fix corner-cases.
+
 
 == Screenshots ==
 
