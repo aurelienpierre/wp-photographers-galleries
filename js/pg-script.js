@@ -80,12 +80,11 @@ function preload(matte, next_image) {
   var img = next_image.querySelectorAll('img')[0];
 
   // If already preloaded, skip
-  if ('preloaded' in img.dataset && img.dataset.preloaded == 'true' && img.complete) return;
+  if ('preloaded' in img.dataset && img.dataset.preloaded == 'true') return;
 
   // Remove lazyloading at all, native browser as well as scripts
   delete img.dataset.sizes;
   img.classList.remove('lazyload', 'lazyloaded', 'lazyautosizes');
-  img.loading = 'eager';
 
   // Get current size
   getComputedStyle(matte);
@@ -96,6 +95,7 @@ function preload(matte, next_image) {
   var ratio_img = img.width / img.height;
   var ratio_ratios = ratio_view / ratio_img;
 
+  // find the maximum exact image dimensions that fit within container while preserving display ratios
   var final_height;
   var final_width;
 
@@ -129,19 +129,25 @@ function preload(matte, next_image) {
   img.style.width = final_width + 'px';
   img.style.height = final_height + 'px';
 
+  // probe the different methods of image URL storing by order of highest probability
   if ('srcset' in img.dataset) img.srcset = img.dataset.srcset;
   if ('src' in img.dataset) img.src = img.dataset.src;
+  if ('origSrc' in img.dataset && img.src != img.dataset.origSrc) img.src = img.dataset.origSrc;
+
+  img.loading = 'eager';
+  img.setAttribute('data-preloaded', 'true');
+}
+
+function salvageIndex(i, figures) {
+  // bound check and cycling over an array of figures
+  var nb_figures = figures.length;
+  return (i < 0) ? nb_figures - 1 : (i > nb_figures - 1) ? 0 : i;
 }
 
 function ScrollInc(n, id) {
   var matte = document.getElementById(id);
   var figures = matte.querySelectorAll('figure');
   var nb_figures = figures.length;
-
-  function salvageIndex(i) {
-    // bound check and cycling over array
-    return (i < 0) ? nb_figures - 1 : (i > nb_figures - 1) ? 0 : i;
-  }
 
   var current_index = 0;
   var new_index = 0;
@@ -155,58 +161,74 @@ function ScrollInc(n, id) {
   }
 
   // Get the next figure
-  var new_index = salvageIndex(current_index + n);
+  var new_index = salvageIndex(current_index + n, figures);
 
   // Load the current image if not loaded
   preload(matte, figures[new_index]);
   var img = figures[new_index].querySelectorAll('img')[0];
 
   // Write preloading state
-  img.setAttribute('data-preloaded', 'true');
   figures[new_index].classList.add('active');
 
-  // Preload the next image in the current direction
-  if (n != 0) {
+  // Preload the neighbouring image(s)
+  if (n == 0) {
     // n = 0 is a special case triggered only at init
-    preload(matte, figures[salvageIndex(new_index + n)]);
+    // load previous and next images
+    preload(matte, figures[salvageIndex(-1, figures)]);
+    preload(matte, figures[salvageIndex(+1, figures)]);
     if (nb_figures == 1) { removeArrows(matte); }
   }
   else {
-    preload(matte, figures[salvageIndex(-1)]);
-    preload(matte, figures[salvageIndex(+1)]);
+    // load only the next image in the current direction of moving
+    preload(matte, figures[salvageIndex(new_index + n, figures)]);
   }
 }
 
 var resize_timeout;
 
-// Recompute image sizes on window resize
-window.addEventListener('resize', function () {
+// Reset image sizes and loading on window resize
+window.addEventListener('resize', function ()
+{
   clearTimeout(resize_timeout);
-  resize_timeout = setTimeout(function () {
+  resize_timeout = setTimeout(function ()
+  {
     var mattes = document.getElementsByClassName('pg-exhibition');
-    for (var j = 0; j < mattes.length; j++) {
+    for (var j = 0; j < mattes.length; j++)
+    {
+      console.log('window resized, exhibitions reset');
       var figures = mattes[j].querySelectorAll('figure');
+      var active_index = -1;
 
-      for (var i = 0; i < figures.length; i++) {
+      for(var i = 0; i < figures.length; i++)
+      {
         var img = figures[i].querySelectorAll('img')[0];
 
-        if (img.dataset.preloaded == 'true') {
+        if('preloaded' in img.dataset && img.dataset.preloaded == 'true')
+        {
           img.setAttribute('data-preloaded', 'false');
-          img.setAttribute('data-src', img.src);
-          img.setAttribute('data-srcset', img.srcset);
+          img.loading = 'lazyload';
+
+          // FIXME: the following is probably useless since src and srcset are not supposed to be changed
+          //if('src' in img.dataset) img.setAttribute('data-src', img.src);
+          //if('srcset' in img.dataset) img.setAttribute('data-srcset', img.srcset);
           img.sizes = '';
           img.style.width = '';
           img.style.height = '';
 
-          if (figures[i].classList.contains('active')) {
-            preload(matte, figures[i]);
-          }
+          if(figures[i].classList.contains('active')) active_index = i;
         }
+      }
+
+      // if some picture is active, reload current and neighbour images
+      if(active_index > -1)
+      {
+        preload(matte, figures[active_index]);
+        preload(matte, figures[salvageIndex(active_index - 1, figures)]);
+        preload(matte, figures[salvageIndex(active_index + 1, figures)]);
       }
     }
   }, 500);
-}, {passive: true});
-
+});
 
 /* Horizontal Scrolling and swiping handling */
 

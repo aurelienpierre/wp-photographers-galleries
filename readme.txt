@@ -3,7 +3,7 @@ Contributors: aurelienpierre
 Donate link: https://www.paypal.me/aurelienpierre/
 Tags: gallery, html5, carousel, pictures, responsive, jetpack, photo, taxonomy, exif
 Requires at least: 3.6
-Tested up to: 5.7
+Tested up to: 5.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -226,10 +226,17 @@ All the same as carousels, plus a `look` argument to choose the styling :
 
 == Screenshots ==
 
-[Live Demo with real pictures](https://photo.aurelienpierre.com/photographers-galleries-demo/)
+[Live Demo with real pictures](https://photo.aurelienpierre.com/photographers-galleries-demo/).
 
 
 == Changelog ==
+
+= 1.0.4 =
+
+- Improve Javascript preloading,
+- Make `src` fetching more robust for lazy loading (test for `data-orig-src` field too),
+- Improve exhibitions resetting on `window resize` event,
+- Code cleaning and comments improvements for devs.
 
 = 1.0.3 =
 
