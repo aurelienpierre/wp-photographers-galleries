@@ -160,4 +160,33 @@ function pg_custom_add_image_sizes() {
   add_image_size( 'landscape-480', '0', '480', false );   // HVGA - Palm, iPhone 1
   add_image_size( 'landscape-360', '0', '360', false );   // Old stuff
   add_image_size( 'landscape-240', '0', '240', false );   // Very old stuff
+
+  // square images
+  add_image_size( 'square-7680', '7680', '7680', true ); // 8K
+  add_image_size( 'square-4096', '4096', '4096', true ); // 4K cinema
+  add_image_size( 'square-3840', '3840', '3840', true ); // 4K
+  add_image_size( 'square-2560', '2560', '2560', true ); // QHD / WQHD
+  add_image_size( 'square-2048', '2048', '2048', true ); // 2K
+  add_image_size( 'square-1920', '1920', '1920', true ); // Full HD
+  add_image_size( 'square-1680', '1680', '1680', true ); // Desktop WSXGA+
+  add_image_size( 'square-1440', '1440', '1440', true ); // Desktop WXGA+
+  add_image_size( 'square-1366', '1366', '1366', true ); // HD-ish
+  add_image_size( 'square-1280', '1280', '1280', true ); // WXGA - HD
+  add_image_size( 'square-1080', '1080', '1080', true ); // Full HD height
+  add_image_size( 'square-960', '960', '960', true );   // DVGA - iPhone 4
+  add_image_size( 'square-800', '800', '800', true );   // WXGA - HD height
+  add_image_size( 'square-640', '640', '640', true );   // VGA - Standard definition
+  add_image_size( 'square-480', '480', '480', true );   // HVGA - Palm, iPhone 1
+  add_image_size( 'square-360', '360', '360', true );   // Old stuff
+  add_image_size( 'square-240', '240', '240', true );   // Very old stuff
+}
+
+
+// add some images sizes in GUI -> only the largest sizes, since real sizes are responsive
+add_filter( 'image_size_names_choose', 'pg_custom_add_image_size_names' );
+
+function pg_custom_add_image_size_names( $sizes ) {
+  return array_merge( $sizes, array(
+    'square-7680' => __( 'Responsive square' ),
+  ) );
 }
