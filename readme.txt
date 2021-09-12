@@ -256,6 +256,21 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 == Changelog ==
 
+= 1.0.6 =
+
+Improvements for touch and small devices:
+
+- handle swipe gestures and map them to horizontal scrolling,
+- make all scroll event listeners passive for better performance,
+- enable vertical scrolling on galleries to handle page scrolling,
+- reduce margins and resize buttons for better use of mobile devices space,
+- force assets enqueuing inside shortcodes for stability, remove one global content regex for performance,
+- create responsive cropped square thumbnails to add responsitivity to default WP/themes square thumbs,
+
+Bugfixes:
+
+- fix improper scaling of square images in exhibitions.
+
 = 1.0.4 =
 
 - Improve Javascript preloading,
