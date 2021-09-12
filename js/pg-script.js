@@ -40,7 +40,6 @@ function Scroll(n, id) {
   var position = centers[current_index] - matte.offsetWidth / 2.;
 
   matte.scroll({
-    top: 0,
     left: position,
     behavior: 'smooth'
   });
@@ -149,44 +148,51 @@ function salvageIndex(i, figures) {
   return (i < 0) ? nb_figures - 1 : (i > nb_figures - 1) ? 0 : i;
 }
 
+var scroll_timeout;
+
 function ScrollInc(n, id) {
-  var matte = document.getElementById(id);
-  var figures = matte.querySelectorAll('figure');
-  var nb_figures = figures.length;
+  clearTimeout(scroll_timeout);
 
-  var current_index = 0;
-  var new_index = 0;
+  scroll_timeout = setTimeout(function () {
 
-  // standard case for scrolling
-  for (var i = 0; i < nb_figures; i++) {
-    if (figures[i].classList.contains('active')) {
-      current_index = i;
-      figures[i].classList.remove('active');
+    var matte = document.getElementById(id);
+    var figures = matte.querySelectorAll('figure');
+    var nb_figures = figures.length;
+
+    var current_index = 0;
+    var new_index = 0;
+
+    // standard case for scrolling
+    for (var i = 0; i < nb_figures; i++) {
+      if (figures[i].classList.contains('active')) {
+        current_index = i;
+        figures[i].classList.remove('active');
+      }
     }
-  }
 
-  // Get the next figure
-  var new_index = salvageIndex(current_index + n, figures);
+    // Get the next figure
+    var new_index = salvageIndex(current_index + n, figures);
 
-  // Load the current image if not loaded
-  preload(matte, figures[new_index]);
-  var img = figures[new_index].querySelectorAll('img')[0];
+    // Load the current image if not loaded
+    preload(matte, figures[new_index]);
+    var img = figures[new_index].querySelectorAll('img')[0];
 
-  // Write preloading state
-  figures[new_index].classList.add('active');
+    // Write preloading state
+    figures[new_index].classList.add('active');
 
-  // Preload the neighbouring image(s)
-  if (n == 0) {
-    // n = 0 is a special case triggered only at init
-    // load previous and next images
-    preload(matte, figures[salvageIndex(-1, figures)]);
-    preload(matte, figures[salvageIndex(+1, figures)]);
-    if (nb_figures == 1) { removeArrows(matte); }
-  }
-  else {
-    // load only the next image in the current direction of moving
-    preload(matte, figures[salvageIndex(new_index + n, figures)]);
-  }
+    // Preload the neighbouring image(s)
+    if (n == 0) {
+      // n = 0 is a special case triggered only at init
+      // load previous and next images
+      preload(matte, figures[salvageIndex(-1, figures)]);
+      preload(matte, figures[salvageIndex(+1, figures)]);
+      if (nb_figures == 1) { removeArrows(matte); }
+    }
+    else {
+      // load only the next image in the current direction of moving
+      preload(matte, figures[salvageIndex(new_index + n, figures)]);
+    }
+  }, 250);
 }
 
 var resize_timeout;
@@ -194,7 +200,6 @@ var resize_timeout;
 // Reset image sizes and loading on window resize
 window.addEventListener('resize', function ()
 {
-  clearTimeout(resize_timeout);
   resize_timeout = setTimeout(function ()
   {
     var mattes = document.getElementsByClassName('pg-exhibition');
@@ -237,10 +242,11 @@ window.addEventListener('resize', function ()
 
 /* Horizontal Scrolling and swiping handling */
 
-var isScrolling;
+var isScrolling = false;
 
 function jumpScroll(event, id) {
   // Stupid Firefox scrolls line by line, we need to convert line height to pixels
+  var scrollX = 0;
   var line_to_pixel = 1;
   var line_height = 1.5 * parseFloat(getComputedStyle(event.currentTarget).fontSize)
   if (event.deltaMode == 1) line_to_pixel = line_height;
@@ -258,6 +264,52 @@ function jumpScroll(event, id) {
   }, 50);
 }
 
+var touchHandler = null;
+const time_threshold = 80; // ms
+const distance_threshold = 100; // px
+
+function swipeStart(event, id) {
+  var touchobj = event.changedTouches[0];
+
+  // start recording the move
+  touchHandler = {
+    'container': document.getElementById(id),
+    'startX': touchobj.pageX,
+    'startY': touchobj.pageY,
+    'startTime': new Date().getTime()
+  };
+
+  //event.preventDefault();
+  console.log(touchHandler);
+}
+
+function swipeEnd(event, id) {
+  var touchobj = event.changedTouches[0];
+  var matte = document.getElementById(id);
+
+  // If something went wrong :
+  if (!touchHandler) return;
+  if (matte != touchHandler.container) return;
+
+  // Compute distances
+  const distanceX = touchobj.pageX - touchHandler.startX;
+  const distanceY = touchobj.pageY - touchHandler.startY;
+  const duration = new Date().getTime() - touchHandler.startTime;
+
+  if (duration > time_threshold && Math.abs(distanceX) > distance_threshold && Math.abs(distanceX) > Math.abs(distanceY)) {
+    // thresholds are matched : we have a swipe move
+    if(distanceX < 0)
+      ScrollInc(+1, id);
+    else if (distanceX > 0)
+      ScrollInc(-1, id);
+
+    console.log('swipeEnd');
+  }
+
+  // reset the handler
+  touchHandler = null;
+}
+
 
 /* Give keyboard focus on exhibitions and carousels */
 
@@ -265,17 +317,19 @@ var isInViewport = function(elem) {
   // check if current object is in viewport
   // from https://gomakethings.com/how-to-test-if-an-element-is-in-the-viewport-with-vanilla-javascript/
   var bounding = elem.getBoundingClientRect();
+
+  // if element does not perfectly fit in viewport, allow 20 % of safety margin in every direction
   var result = (
-    bounding.top >= -40 &&
-    bounding.left >= -40 &&
-    bounding.bottom <= window.innerHeight + 40 &&
-    bounding.right <= window.innerWidth + 40
+    bounding.top >= -0.2 * window.innerHeight &&
+    bounding.left >= -0.2 * window.innerWidth &&
+    bounding.bottom <= 1.2 * window.innerHeight &&
+    bounding.right <= 1.2 * window.innerWidth
   );
   return result;
 }
 
 window.addEventListener('scroll', function (event) {
-  clearTimeout(isScrolling);
+  if(isScrolling) clearTimeout(isScrolling);
   isScrolling = setTimeout(function () {
     var carousels = document.getElementsByClassName('pg-carousel');
     var exhibitions = document.getElementsByClassName('pg-exhibition');

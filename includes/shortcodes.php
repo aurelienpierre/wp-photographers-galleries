@@ -168,11 +168,13 @@ function pg_exhibition( $atts, $content ){
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(ScrollInc(0, '$id'), 500);
     }, false);
-    matte.addEventListener('wheel', function(event) { jumpScroll(event, '$id'); });
+    matte.addEventListener('wheel', function(event) { jumpScroll(event, '$id'); }, {passive: true});
     matte.addEventListener('keydown', function(event) {
       if(event.key == 'ArrowLeft') ScrollInc(-1, '$id');
       if(event.key == 'ArrowRight') ScrollInc(+1, '$id');
     });
+    matte.addEventListener('touchstart', function(event){ swipeStart(event, '$id'); });
+    matte.addEventListener('touchend', function(event){ swipeEnd(event, '$id'); });
     </script>";
 
     return $style . $before . $inside . $after . $script;
