@@ -40,6 +40,10 @@
   display: block;
 }
 
+.gallery figure.gallery-item a {
+  display: block;
+}
+
 /* CAPTION ALIGNED */
 
 .pg-align_caption .gallery {
@@ -66,7 +70,7 @@
   right: 0;
   display: none;
   background: rgba(255, 255, 255, 0.75);
-  z-index:9999;
+  z-index: 10;
   color: black;
   text-align: center;
 }
@@ -142,7 +146,7 @@ html {
   overflow-y: visible;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-  touch-action: pan-x;
+  touch-action: pan-x pan-y pinch-zoom;
   padding: 0;
   box-sizing: border-box;
   transition: transform .5s ease-out;
@@ -153,14 +157,14 @@ html {
 }
 
 .pg-exhibition {
-  padding: 4em;
+  padding: 4em 1em;
 }
 
 .pg-carousel header {
   position: absolute;
   font-size: 1.1em;
   display: block;
-  z-index:9999;
+  z-index: 10;
   font-variant: small-caps;
   -moz-font-feature-settings: 'smcp' on;
   -webkit-font-feature-settings: 'smcp' on;
@@ -305,14 +309,14 @@ html {
 .pg-no_caption.look-box .pg-exhibition,
 .pg-no_caption.look-box-bright .pg-exhibition,
 .pg-no_caption.look-box-dark .pg-exhibition {
-  padding: 4em;
+  padding: 5em 2em;
 }
 
 .pg-show_caption.look-classic .pg-exhibition,
 .pg-show_caption.look-box .pg-exhibition,
 .pg-show_caption.look-box-bright .pg-exhibition,
 .pg-show_caption.look-box-dark .pg-exhibition {
-  padding: 6em;
+  padding: 6em 2em;
 }
 
 .pg-exhibition-wrapper .look-modern .gallery .gallery-icon {
@@ -373,12 +377,12 @@ html {
 
 /* Next & previous buttons */
 .gallery-prev, .gallery-next {
-  width: 12%;
+  width: 15%;
   height: 100%;
   position: absolute;
   top: 0;
   cursor: pointer;
-  z-index: 999;
+  z-index: 10;
 }
 
 .gallery-prev { left: 0; }
@@ -388,39 +392,42 @@ html {
   cursor: pointer;
   position: absolute;
   top: 50%;
-  width: auto;
+  text-align: center;
+  padding: 7px 2px;
   margin-top: -15px;
   font-size: 15px;
   user-select: none;
-  color: white;
+  color: #333;
   font-weight: normal;
   user-select: none;
   box-sizing: border-box;
-  opacity: 80%;
-  background-color: rgb(58, 58, 58);
+  background-color: rgba(51, 51, 51, 0.0);
 }
 
 .pg-exhibition .gallery-prev span, .pg-exhibition .gallery-next span {
-  background-color: rgb(51, 51, 51);
+  background-color: rgb(51, 51, 51, 0.0);
 }
 
 .gallery-prev span {
-  padding: 7px 12px 7px 11px;
+  left: 0;
+  padding-right: 10px;
+  border-radius: 0 19px 19px 0;
 }
 
 .gallery-next span{
   right: 0;
-  padding: 7px 11px 7px 12px;
+  padding-left: 10px;
+  border-radius: 19px 0 0 19px;
 }
 
 .gallery-prev:hover span, .gallery-next:hover span {
-  opacity: 100%;
+  opacity: 80%;
 }
 
 /* On hover, add a black background color with a little bit see-through */
 a.gallery-prev:hover span, a.gallery-next:hover span {
   background-color: rgba(0,0,0,1);
-  opacity: 100%;
+  opacity: 80%;
   text-transform: none;
   text-decoration: none!important;
   color: white;
