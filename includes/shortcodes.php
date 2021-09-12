@@ -14,6 +14,10 @@ function pg_carousel( $atts, $content ){
   * Optionnaly, it adds a custom height and width to the unique carousel
   */
 
+  // Force ressources loading
+  wp_enqueue_script('pg-js');
+  wp_enqueue_style('pg-css');
+
   // Set the container ID
   new pg_Carousels();
   $counter = pg_Carousels::$counter;
@@ -97,6 +101,10 @@ function pg_exhibition( $atts, $content ){
   * This shortcode is just intended to add classes to the gallery wrapper div
   * Optionnaly, it adds a custom height and width to the unique carousel
   */
+
+  // Force ressources loading
+  wp_enqueue_script('pg-js');
+  wp_enqueue_style('pg-css');
 
   // Set the container ID
   new pg_Carousels();

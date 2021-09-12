@@ -43,6 +43,7 @@ function register_pg_styles() {
   wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0.4', true);
 }
 
+// this parses the post content with a regex for clever on-demand loading, so it needs to come very late
 add_filter('the_content', 'enqueue_photographers_galleries', 100);
 function enqueue_photographers_galleries( $content )
 {
@@ -50,10 +51,6 @@ function enqueue_photographers_galleries( $content )
   if(preg_match('/<(div|section).*class=([\'\"]).*gallery.*\1.*>/s', $content))
   {
     wp_enqueue_style('pg-css');
-  }
-  if(preg_match('/<(div|section).*class=([\'\"]).*pg-.*\1.*>/s', $content))
-  {
-    wp_enqueue_script('pg-js');
   }
   return $content;
 }
