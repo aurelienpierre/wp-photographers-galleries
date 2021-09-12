@@ -119,6 +119,11 @@ function preload(matte, next_image) {
     final_height = maxHeight;
     final_width = maxHeight * ratio_img;
   }
+  else if (ratio_img == 1.) {
+    // square image -> smaller dimension is blocking
+    final_height = Math.min(maxHeight, maxWidth);
+    final_width = Math.min(maxHeight, maxWidth);
+  }
   else {
     // ratio image == ratio screen -> perfect match
     final_height = maxHeight;
