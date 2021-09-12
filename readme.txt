@@ -3,7 +3,7 @@ Contributors: aurelienpierre
 Donate link: https://www.paypal.me/aurelienpierre/
 Tags: gallery, html5, carousel, pictures, responsive, jetpack, photo, taxonomy, exif
 Requires at least: 3.6
-Tested up to: 5.8
+Tested up to: 5.8.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
