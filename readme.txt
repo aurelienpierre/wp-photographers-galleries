@@ -256,6 +256,15 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 == Changelog ==
 
+= 1.0.7 =
+
+Improvements of captions:
+
+- Remove unnecessary CSS rules,
+- Reduce vertical margins for exhibitions to free more display real estate on mobile,
+- Prevent column breaking between image and caption in figure for thumbnails galleries,
+- Let captions flow for carousels.
+
 = 1.0.6 =
 
 Improvements for touch and small devices:

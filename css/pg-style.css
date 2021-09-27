@@ -32,12 +32,7 @@
 
 .gallery figure {
   margin-bottom: 10px;
-  break-after: column;
-}
-
-.wp-caption-text {
-  white-space: normal;
-  display: block;
+  break-inside: avoid;
 }
 
 .gallery figure.gallery-item a {
@@ -157,7 +152,7 @@ html {
 }
 
 .pg-exhibition {
-  padding: 4em 1em;
+  padding: 2em 1em;
 }
 
 .pg-carousel header {
@@ -216,10 +211,8 @@ html {
 }
 
 .pg-exhibition .gallery .wp-caption-text {
-  display: block;
   text-align: right;
   line-height: 2;
-  margin-top: 1em;
 }
 
 .pg-exhibition .gallery {
@@ -309,14 +302,14 @@ html {
 .pg-no_caption.look-box .pg-exhibition,
 .pg-no_caption.look-box-bright .pg-exhibition,
 .pg-no_caption.look-box-dark .pg-exhibition {
-  padding: 5em 2em;
+  padding: 2em 2em;
 }
 
 .pg-show_caption.look-classic .pg-exhibition,
 .pg-show_caption.look-box .pg-exhibition,
 .pg-show_caption.look-box-bright .pg-exhibition,
 .pg-show_caption.look-box-dark .pg-exhibition {
-  padding: 6em 2em;
+  padding: 3em 2em;
 }
 
 .pg-exhibition-wrapper .look-modern .gallery .gallery-icon {
