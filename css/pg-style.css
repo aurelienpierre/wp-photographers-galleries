@@ -302,14 +302,14 @@ html {
 .pg-no_caption.look-box .pg-exhibition,
 .pg-no_caption.look-box-bright .pg-exhibition,
 .pg-no_caption.look-box-dark .pg-exhibition {
-  padding: 2em 2em;
+  padding: 4em 2em;
 }
 
 .pg-show_caption.look-classic .pg-exhibition,
 .pg-show_caption.look-box .pg-exhibition,
 .pg-show_caption.look-box-bright .pg-exhibition,
 .pg-show_caption.look-box-dark .pg-exhibition {
-  padding: 3em 2em;
+  padding: 5em 2em;
 }
 
 .pg-exhibition-wrapper .look-modern .gallery .gallery-icon {

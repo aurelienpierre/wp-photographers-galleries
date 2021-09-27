@@ -256,6 +256,10 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 == Changelog ==
 
+= 1.0.8 =
+
+Fix a margin regression in exhibitions
+
 = 1.0.7 =
 
 Improvements of captions:
