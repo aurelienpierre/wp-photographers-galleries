@@ -256,6 +256,10 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 == Changelog ==
 
+= 1.1.0 =
+
+Minor CSS height rework for carousels.
+
 = 1.0.9 =
 
 Add EXIF metadata display in media view.

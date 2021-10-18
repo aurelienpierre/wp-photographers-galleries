@@ -262,12 +262,12 @@ html {
 }
 
 .pg-carousel .gallery img {
-  max-height: calc(90vh - 40px);
+  max-height: 100vh;
   max-width: none;
   min-width: 150px;
   min-height: 150px;
   width: auto;
-  height: calc(90vh - 40px);
+  height: 90vh;
   box-sizing: border-box;
   border: none;
   pointer-events: none;
