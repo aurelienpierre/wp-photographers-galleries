@@ -14,7 +14,7 @@
  * Plugin Name: Photographers galleries
  * Plugin URI:  https://wordpress.org/plugins/photographers-galleries/
  * Description: Enhance your galleries with HTML5, metadata, dynamic galleries and add a lightweight carousel to display a sequence of pictures without distractions.
- * Version:     1.0.8
+ * Version:     1.0.9
  * Author:      Aurélien PIERRE
  * Author URI:  https://photo.aurelienpierre.com
  * Text Domain: photographers-galleries
@@ -42,8 +42,8 @@ if ( ! defined( 'WPINC' ) ) {
 add_action('wp_enqueue_scripts', 'register_pg_styles', 10 );
 
 function register_pg_styles() {
-  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.0.8');
-  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0.8', true);
+  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.0.9');
+  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.0.9', true);
 }
 
 // this parses the post content with a regex for clever on-demand loading, so it needs to come very late
@@ -193,3 +193,13 @@ function pg_custom_add_image_size_names( $sizes ) {
     'square-7680' => __( 'Responsive square' ),
   ) );
 }
+
+// Use a quality setting of 90 for WebP images.
+// 75 is clearly not enough for photographs.
+function filter_webp_quality( $quality, $mime_type ) {
+  if ( 'image/webp' === $mime_type ) {
+     return 90;
+  }
+  return $quality;
+}
+add_filter( 'wp_editor_set_quality', 'filter_webp_quality', 10, 2 );

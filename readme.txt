@@ -256,6 +256,11 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 == Changelog ==
 
+= 1.0.9 =
+
+Add EXIF metadata display in media view.
+Force WebP thumbnails to quality = 90 because WP default (quality = 75) shows posterization in smooth gradients
+
 = 1.0.8 =
 
 Fix a margin regression in exhibitions
