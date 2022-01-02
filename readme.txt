@@ -259,8 +259,6 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 = 1.1.2 =
 
-Add EXIF display in WP media library (when adding media to the post), noticeably the EXIF date/time (useful if you need to use it in image caption).
-
 Make the browser scroll on the full-height carousel and exhibition to center it exactly in the viewport.
 
 From now on, releases will get even version numbers (x.0, x.2, x.4) and odd numbers will be for development versions (x.1, x.3, x.5).
