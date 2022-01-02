@@ -328,6 +328,15 @@ var isInViewport = function(elem) {
   return result;
 }
 
+function scroll_to_view(elem) {
+  // Ensure bloody browser scrolled for real to display the elem in viewport
+  if (elem.offsetHeight <= window.innerHeight && elem.offsetHeight > 0.8 * window.innerHeight) {
+    var bounding = elem.getBoundingClientRect();
+    let padding = Math.max((window.innerHeight - elem.offsetHeight) / 2.0, 20.);
+    window.scroll(window.scrollX, -padding + window.scrollY + bounding.top);
+  }
+}
+
 window.addEventListener('scroll', function (event) {
   if(isScrolling) clearTimeout(isScrolling);
   isScrolling = setTimeout(function () {
@@ -336,13 +345,21 @@ window.addEventListener('scroll', function (event) {
 
     for (i = 0; i < carousels.length; i++) {
       var elem = carousels[i];
-      if (isInViewport(elem)) elem.focus({ preventScroll: true });
+      if (isInViewport(elem))
+      {
+        elem.focus({ preventScroll: false });
+        scroll_to_view(elem);
+      }
       else elem.blur();
     }
     for (i = 0; i < exhibitions.length; i++) {
       var elem = exhibitions[i];
-      if (isInViewport(elem)) elem.focus({ preventScroll: true });
+      if (isInViewport(elem))
+      {
+        elem.focus({ preventScroll: false });
+        scroll_to_view(elem);
+      }
       else elem.blur();
     }
-  }, 100);
+  }, 200);
 }, { passive: true });

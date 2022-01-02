@@ -3,7 +3,8 @@ Contributors: aurelienpierre
 Donate link: https://www.paypal.me/aurelienpierre/
 Tags: gallery, html5, carousel, pictures, responsive, jetpack, photo, taxonomy, exif
 Requires at least: 3.6
-Tested up to: 5.8.1
+Tested up to: 5.8.2
+Requires PHP: 7.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -255,6 +256,17 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 
 == Changelog ==
+
+= 1.1.2 =
+
+Add EXIF display in WP media library (when adding media to the post), noticeably the EXIF date/time (useful if you need to use it in image caption).
+
+Make the browser scroll on the full-height carousel and exhibition to center it exactly in the viewport.
+
+From now on, releases will get even version numbers (x.0, x.2, x.4) and odd numbers will be for development versions (x.1, x.3, x.5).
+This will help cache and CDN invalidation based on versioning for people testing development versions.
+
+Happy New Year !
 
 = 1.1.0 =
 

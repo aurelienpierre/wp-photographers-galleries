@@ -8,13 +8,13 @@
  * @author    Aurélien PIERRE <contact@aurelienpierre.com>
  * @license   GPL-2.0+
  * @link      https://wordpress.org/plugins/photographers-galleries/
- * @copyright 2016-2021 Aurélien Pierre
+ * @copyright 2016-2022 Aurélien Pierre
  *
  * @wordpress-plugin
  * Plugin Name: Photographers galleries
  * Plugin URI:  https://wordpress.org/plugins/photographers-galleries/
  * Description: Enhance your galleries with HTML5, metadata, dynamic galleries and add a lightweight carousel to display a sequence of pictures without distractions.
- * Version:     1.1.0
+ * Version:     1.1.2
  * Author:      Aurélien PIERRE
  * Author URI:  https://photo.aurelienpierre.com
  * Text Domain: photographers-galleries
@@ -42,8 +42,8 @@ if ( ! defined( 'WPINC' ) ) {
 add_action('wp_enqueue_scripts', 'register_pg_styles', 10 );
 
 function register_pg_styles() {
-  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.1.0');
-  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.1.0', true);
+  wp_register_style('pg-css', plugin_dir_url( __FILE__ ).'css/pg-style.min.css', array(), '1.1.2');
+  wp_register_script('pg-js', plugin_dir_url( __FILE__ ).'js/pg-script.min.js', array(), '1.1.2', true);
 }
 
 // this parses the post content with a regex for clever on-demand loading, so it needs to come very late
