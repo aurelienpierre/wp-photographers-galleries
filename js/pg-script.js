@@ -320,9 +320,9 @@ var isInViewport = function(elem) {
 
   // if element does not perfectly fit in viewport, allow 20 % of safety margin in every direction
   var result = (
-    bounding.top >= -0.2 * window.innerHeight &&
+    bounding.top >= -0.1 * window.innerHeight &&
     bounding.left >= -0.2 * window.innerWidth &&
-    bounding.bottom <= 1.2 * window.innerHeight &&
+    bounding.bottom <= 1.1 * window.innerHeight &&
     bounding.right <= 1.2 * window.innerWidth
   );
   return result;

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/aurelienpierre/
 Tags: gallery, html5, carousel, pictures, responsive, jetpack, photo, taxonomy, exif
 Requires at least: 3.6
 Tested up to: 5.8.2
-Requires PHP: 7.4
+Requires PHP: 7.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -256,6 +256,10 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 
 == Changelog ==
+
+= 1.1.4 =
+
+Fine-tune the auto-scrolling sensitivity on full-height carousels and exhibitions.
 
 = 1.1.2 =
 
