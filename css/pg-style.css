@@ -39,6 +39,10 @@
   display: block;
 }
 
+.gallery .wp-caption-text {
+  line-height: 1.2em;
+}
+
 /* CAPTION ALIGNED */
 
 .pg-align_caption .gallery {
@@ -67,7 +71,7 @@
   background: rgba(255, 255, 255, 0.75);
   z-index: 10;
   color: black;
-  text-align: center;
+  text-align: center;}
 }
 
 .pg-hover_caption .gallery-item:hover .wp-caption-text,
@@ -232,7 +236,7 @@ html {
   width: auto;
   height: 100%;
   padding: 0;
-  margin: 0 10px;
+  margin: 0 5px;
   position: relative;
   box-sizing: border-box;
   border: none;
@@ -267,10 +271,35 @@ html {
   min-width: 150px;
   min-height: 150px;
   width: auto;
-  height: 90vh;
   box-sizing: border-box;
   border: none;
   pointer-events: none;
+}
+
+/* Image height :
+ *   32 px : WP adminbar height
+ *   1em : one line of text caption
+ *   20 px : 2 × 10 px of carousel margins top/bottom
+ */
+
+/* default */
+.pg-carousel .gallery img {
+  height: calc(100vh - 1.2em - 20px);
+}
+
+.admin-bar .pg-carousel .gallery img {
+  height: calc(100vh - 1.2em - 20px - 32px);
+}
+
+/* no captions */
+.pg-carousel.pg-no_caption .gallery img,
+.pg-carousel.pg-hover_caption .gallery img {
+  height: calc(100vh - 20px);
+}
+
+.admin-bar .pg-carousel.pg-no_caption .gallery img,
+.admin-bar .pg-carousel.pg-hover_caption .gallery img {
+  height: calc(100vh - 20px - 32px);
 }
 
 .pg-exhibition .gallery img {

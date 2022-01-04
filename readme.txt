@@ -257,6 +257,15 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 == Changelog ==
 
+= 1.1.6 =
+
+- Improve the scroll capture detection when carousels and exhibitions take focus,
+- Size the carrousel's height accordingly to WP admin bar (if present) and captions,
+- Auto-scroll on carousels and exhibitions depending on WP admin bar,
+- Add 2 custom Javascript events for developers : `PhotoGalleryCaptureScroll` and `PhotoGalleryReleaseScroll`.
+  The first gets fired when carousels and exhibitions take focus and force a scroll to fit them in viewport.
+	The second gets fired when carousels and exhibitions loose focus. These can be listened to show/hide elements.
+
 = 1.1.4 =
 
 Fine-tune the auto-scrolling sensitivity on full-height carousels and exhibitions.

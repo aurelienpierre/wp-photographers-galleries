@@ -317,23 +317,47 @@ var isInViewport = function(elem) {
   // check if current object is in viewport
   // from https://gomakethings.com/how-to-test-if-an-element-is-in-the-viewport-with-vanilla-javascript/
   var bounding = elem.getBoundingClientRect();
+  var threshold = 0.1;
+
+  if (CaptureScroll) {
+    // If the scroll is being captured, the image already fits perfectly in viewport
+    // This means that, as soon as the view is moved, we need release the lock
+    // otherwise the view sticks and it's super annoying
+    threshold = 0.01;
+  }
 
   // if element does not perfectly fit in viewport, allow 20 % of safety margin in every direction
   var result = (
-    bounding.top >= -0.1 * window.innerHeight &&
+    bounding.top >= -threshold * window.innerHeight &&
     bounding.left >= -0.2 * window.innerWidth &&
-    bounding.bottom <= 1.1 * window.innerHeight &&
+    bounding.bottom <= (1. + threshold) * window.innerHeight &&
     bounding.right <= 1.2 * window.innerWidth
   );
   return result;
 }
 
+/**
+ * Declare a custom event to be triggered when Photographers Galleries forces a scroll
+ * on the current carrousel or exhibition. This event can be listened to update the view,
+ * for example to remove toolbars and menus and clear out the viewport
+ **/
+const PhotoGalleryEventCapture = new Event('PhotoGalleryCaptureScroll');
+const PhotoGalleryEventRelease = new Event('PhotoGalleryReleaseScroll');
+var CaptureScroll = false;
+
 function scroll_to_view(elem) {
   // Ensure bloody browser scrolled for real to display the elem in viewport
   if (elem.offsetHeight <= window.innerHeight && elem.offsetHeight > 0.8 * window.innerHeight) {
     var bounding = elem.getBoundingClientRect();
-    let padding = Math.max((window.innerHeight - elem.offsetHeight) / 2.0, 20.);
+    var padding = (window.innerHeight - elem.offsetHeight) / 2.0 + 5.0;
+
+    // Compensate for WP admin bar
+    var adminBar = document.getElementById('wpadminbar');
+    if (adminBar) padding += adminBar.offsetHeight / 2.0;
     window.scroll(window.scrollX, -padding + window.scrollY + bounding.top);
+
+    // Dispatch our custom event
+    window.dispatchEvent(PhotoGalleryEventCapture);
   }
 }
 
@@ -343,12 +367,15 @@ window.addEventListener('scroll', function (event) {
     var carousels = document.getElementsByClassName('pg-carousel');
     var exhibitions = document.getElementsByClassName('pg-exhibition');
 
+    var release = true;
+
     for (i = 0; i < carousels.length; i++) {
       var elem = carousels[i];
       if (isInViewport(elem))
       {
         elem.focus({ preventScroll: false });
         scroll_to_view(elem);
+        release = false;
       }
       else elem.blur();
     }
@@ -358,8 +385,21 @@ window.addEventListener('scroll', function (event) {
       {
         elem.focus({ preventScroll: false });
         scroll_to_view(elem);
+        release = false;
       }
       else elem.blur();
     }
+
+    if(release) window.dispatchEvent(PhotoGalleryEventRelease);
   }, 200);
+}, { passive: true });
+
+
+// Record the scroll capture state
+window.addEventListener('PhotoGalleryCaptureScroll', function (event) {
+  CaptureScroll = true;
+}, { passive: true });
+
+window.addEventListener('PhotoGalleryReleaseScroll', function (event) {
+  CaptureScroll = false;
 }, { passive: true });
