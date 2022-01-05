@@ -142,7 +142,7 @@ html {
   height: 100%;
   display: block;
   overflow-x: scroll;
-  overflow-y: visible;
+  overflow-y: hidden;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   touch-action: pan-x pan-y pinch-zoom;
@@ -195,7 +195,8 @@ html {
   margin: 10px -20px 10px -10px;
   padding: 0;
   box-sizing: border-box;
-  overflow: visible;
+  overflow-x: visible;
+  overflow-y: hidden;
 }
 
 .pg-exhibition .gallery,
@@ -240,6 +241,7 @@ html {
   position: relative;
   box-sizing: border-box;
   border: none;
+  vertical-align: top;
 }
 
 .pg-exhibition .gallery .gallery-item {

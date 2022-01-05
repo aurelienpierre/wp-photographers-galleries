@@ -257,6 +257,10 @@ Using native WordPress galleries, Photographers Galleries need to overwrite them
 
 == Changelog ==
 
+= 1.1.8 =
+
+Bugfix : fix alignment of carousel's images when captions are insanely long.
+
 = 1.1.6 =
 
 - Improve the scroll capture detection when carousels and exhibitions take focus,
